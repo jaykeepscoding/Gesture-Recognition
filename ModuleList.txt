@@ -1,0 +1,9 @@
+OpenCV-Python (I/O handler)
+Mediapipe (Trained Neural Net for Hand Recognition and Mapping)
+PyautoGui (Virtual Input manager)
+
+
+
+----
+Possible Additions:
+Pyinstaller (Make Executables)
