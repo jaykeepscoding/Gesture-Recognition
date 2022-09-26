@@ -18,7 +18,6 @@ mpHands = mp.solutions.hands
 hands = mpHands.Hands()
 mpdraw = mp.solutions.drawing_utils
 
-ptime = 0
 while True:
     #Capture image must write to success and img for the capture due to OpenCV parameter requirements
     success, img = cap.read()
@@ -28,14 +27,14 @@ while True:
     imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     #This reads the image from the camera and detects hands, turing them into objects
     results = hands.process(imgRGB)
-    #print(results.multi_hand_landmarks)
 
     #get hand, for each landmark in result draw the landmark and record the xl,yl of the indexfinger tip
     if results.multi_hand_landmarks:
 
+        time.sleep(.05)
         xl = results.multi_hand_landmarks[0].landmark[mpHands.HandLandmark.INDEX_FINGER_TIP].x * wCam
         yl = results.multi_hand_landmarks[0].landmark[mpHands.HandLandmark.INDEX_FINGER_TIP].y * hCam
-
+        print(xl,yl)
         pyautogui.moveTo(xl,yl)
-    
+
     
