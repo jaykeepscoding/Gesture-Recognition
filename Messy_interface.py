@@ -22,7 +22,8 @@ class base(tk.Frame):
         label =tk.Label(root)
         label.pack()
         cap= cv2.VideoCapture(0)
-        
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH,150)
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH,200)
         # Define function to show frame
         def show_frames():
             # Get the latest frame and convert into Image
