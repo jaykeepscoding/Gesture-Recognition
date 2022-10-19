@@ -1,13 +1,7 @@
-
-
-import tkinter
-from tkinter import *
 from PIL import Image, ImageTk
 import cv2
 import time
-import pyautogui
 import mediapipe as mp
-import keyboard
 import pyautogui
 import csv
 
@@ -39,8 +33,6 @@ while True:
 
     #get hand, for each landmark in result draw the landmark and record the xl,yl of the indexfinger tip
     if results.multi_hand_landmarks:
-        if keyboard.is_pressed('Ctrl'):
-            exit()
         fingers = [mpHands.HandLandmark.THUMB_TIP, mpHands.HandLandmark.INDEX_FINGER_TIP, mpHands.HandLandmark.MIDDLE_FINGER_TIP, mpHands.HandLandmark.RING_FINGER_TIP, mpHands.HandLandmark.PINKY_TIP]
         for v in fingers:
             xl = results.multi_hand_landmarks[0].landmark[v].x * wCam
@@ -49,6 +41,7 @@ while True:
             if v in lst_hd:
                 rt = lst_hd.index(v)
                 comp_lst[rt] = (xl,yl)
+        print(lst_hd)
         print(comp_lst)
 
 
