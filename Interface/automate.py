@@ -9,7 +9,7 @@ import pyautogui
 import mediapipe as mp
 import keyboard
 import pyautogui
-
+import csv
 
 wCam, hCam = pyautogui.size()[0], pyautogui.size()[1]
 
@@ -25,7 +25,8 @@ mpHands = mp.solutions.hands
 hands = mpHands.Hands()
 mpdraw = mp.solutions.drawing_utils
 
-
+comp_lst = [[],[],[],[],[]]
+lst_hd = [mpHands.HandLandmark.THUMB_TIP, mpHands.HandLandmark.INDEX_FINGER_TIP, mpHands.HandLandmark.MIDDLE_FINGER_TIP, mpHands.HandLandmark.RING_FINGER_TIP, mpHands.HandLandmark.PINKY_TIP]
 while True:
     #Capture image must write to success and img for the capture due to OpenCV parameter requirements
     success, img = cap.read()
@@ -44,8 +45,13 @@ while True:
         for v in fingers:
             xl = results.multi_hand_landmarks[0].landmark[v].x * wCam
             yl = results.multi_hand_landmarks[0].landmark[v].y * hCam
-            print(v, xl, yl)
+            #print(v, xl, yl)
+            if v in lst_hd:
+                rt = lst_hd.index(v)
+                comp_lst[rt] = (xl,yl)
+        print(comp_lst)
 
-            
+
+
         #print(xl,yl)
 
