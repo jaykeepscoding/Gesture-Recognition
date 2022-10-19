@@ -4,7 +4,7 @@ import time
 import mediapipe as mp
 import pyautogui
 import csv
-
+info = open("Interface/tst.csv", "rw+")
 wCam, hCam = pyautogui.size()[0], pyautogui.size()[1]
 
 #Initialize Video Capture
@@ -47,6 +47,4 @@ if results.multi_hand_landmarks:
 
 
     #print(xl,yl)
-
-
 
