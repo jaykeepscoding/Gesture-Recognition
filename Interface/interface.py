@@ -4,14 +4,16 @@ from PIL import Image, ImageTk
 import cv2
 import time
 import pyautogui
-
+import mediapipe as mp
+import keyboard
+import pyautogui
 class Interface():
    def __init__(self):
       self.win = Tk()
       #Operations(self.win)
       optics_inst = opticsControl(self.win)
 
-      #tkinter.Button(self.win, text="Kill feed", command=optics_inst.setCamera).pack()
+      tkinter.Button(self.win, text="Kill feed", command=optics_inst.setCamera).pack()
       self.win.mainloop()
 
 
@@ -48,10 +50,26 @@ class opticsControl():
 
 
    def startFeed(self):
+      wCam, hCam = pyautogui.size()[0], pyautogui.size()[1]
+      mpHands = mp.solutions.hands
+      hands = mpHands.Hands()
+      mpdraw = mp.solutions.drawing_utils
+
       _, frame = self.cap.read()
       cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
       img = Image.fromarray(cv2image)
+      #imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+      results = hands.process(cv2image)
+
+      if results.multi_hand_landmarks:
+         if keyboard.is_pressed('Ctrl'):
+            exit()
+
+         xl = results.multi_hand_landmarks[0].landmark[mpHands.HandLandmark.INDEX_FINGER_TIP].x * wCam
+         yl = results.multi_hand_landmarks[0].landmark[mpHands.HandLandmark.INDEX_FINGER_TIP].y * hCam
+         print(xl, yl)
+         pyautogui.moveTo(xl, yl)
       # Convert image to PhotoImage
       imgtk = ImageTk.PhotoImage(image=img)
       self.labeler.imgtk = imgtk
