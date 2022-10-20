@@ -18,8 +18,8 @@ def createList(aimage):
     lst_hd = [mpHands.HandLandmark.THUMB_TIP, mpHands.HandLandmark.INDEX_FINGER_TIP, mpHands.HandLandmark.MIDDLE_FINGER_TIP, mpHands.HandLandmark.RING_FINGER_TIP, mpHands.HandLandmark.PINKY_TIP]
     newp = {}
     img = cv2.imread(aimage,0)
-    cv2.imshow("", img)
-    cv2.waitKey(0)
+    #cv2.imshow("", img)
+    #cv2.waitKey(0)
 
     #img = cv2.flip(img, 1)
     wCam = img.shape[0]
@@ -61,12 +61,8 @@ def createNormList(aimage):
                 yl = results.multi_hand_landmarks[0].landmark[v].y
                 zl = results.multi_hand_landmarks[0].landmark[v].z
                 #print(v, xl, yl)
-                print(zl)
                 if v in lst_hd:
                     newp[str(v)] = (xl,yl,zl)
-
-    print(newp)
-
     return newp
 images = []
 folder = input("enter folder name: ")
@@ -74,18 +70,15 @@ for root, dirs, files in os.walk(folder):
     for file in files:
         if file.endswith(".jpg"):
             images.append(os.path.join(root,file))
-print(images)
-folderRes = folder + '/' + folder + 'imagedata.csv'
+folderRes = folder + '/' + folder + 'ImageData.csv'
 with open(folderRes, 'w', newline='') as csvfile:
     fieldnames = ['HandLandmark.RING_FINGER_TIP','HandLandmark.THUMB_TIP','HandLandmark.PINKY_TIP','HandLandmark.INDEX_FINGER_TIP','HandLandmark.MIDDLE_FINGER_TIP']
 
     csv_writer = csv.DictWriter(csvfile,fieldnames=fieldnames)
     #spamwriter.writerow("THUMB INDEX MIDDLE RING PINKY")
     for x in images:
-            print(x)
             tst = createList(x)
             tst2 = createNormList(x)
-            print(type(tst), len(tst), tst)
             if len(tst) != 0:
                 csv_writer.writeheader()
 
