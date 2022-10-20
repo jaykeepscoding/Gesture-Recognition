@@ -8,7 +8,8 @@ import glob, os
 
 #info = open("Interface/tst.csv", "rw+")
 def createList(aimage):
-    wCam, hCam = pyautogui.size()[0], pyautogui.size()[1]
+    #wCam, hCam = pyautogui.size()[0], pyautogui.size()[1]
+
     mpHands = mp.solutions.hands
     hands = mpHands.Hands()
     mpdraw = mp.solutions.drawing_utils
@@ -20,7 +21,8 @@ def createList(aimage):
     img = cv2.imread(aimage,0)
 
     img = cv2.flip(img, 1)
-
+    wCam = img.shape[0]
+    hCam = img.shape[1]
     imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
     results = hands.process(imgRGB)
