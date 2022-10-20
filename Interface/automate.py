@@ -15,7 +15,7 @@ def createList(aimage):
     mpdraw = mp.solutions.drawing_utils
 
     comp_lst = [[],[],[],[],[]]
-    lst_hd = [mpHands.HandLandmark.THUMB_TIP, mpHands.HandLandmark.INDEX_FINGER_TIP, mpHands.HandLandmark.MIDDLE_FINGER_TIP, mpHands.HandLandmark.RING_FINGER_TIP, mpHands.HandLandmark.PINKY_TIP]
+    lst_hd = [mpHands.HandLandmark.THUMB_TIP, mpHands.HandLandmark.INDEX_FINGER_TIP, mpHands.HandLandmark.MIDDLE_FINGER_TIP, mpHands.HandLandmark.RING_FINGER_TIP, mpHands.HandLandmark.PINKY_TIP,mpHands.HandLandmark.WRIST]
     newp = {}
     img = cv2.imread(aimage,0)
     #cv2.imshow("", img)
@@ -28,7 +28,7 @@ def createList(aimage):
     with mpHands.Hands(min_detection_confidence=0.001, min_tracking_confidence=.01) as hands:
         results = hands.process(imgRGB)
         if results.multi_hand_landmarks:
-            fingers = [mpHands.HandLandmark.THUMB_TIP, mpHands.HandLandmark.INDEX_FINGER_TIP, mpHands.HandLandmark.MIDDLE_FINGER_TIP, mpHands.HandLandmark.RING_FINGER_TIP, mpHands.HandLandmark.PINKY_TIP]
+            fingers = [mpHands.HandLandmark.THUMB_TIP, mpHands.HandLandmark.INDEX_FINGER_TIP, mpHands.HandLandmark.MIDDLE_FINGER_TIP, mpHands.HandLandmark.RING_FINGER_TIP, mpHands.HandLandmark.PINKY_TIP,mpHands.HandLandmark.WRIST]
             for v in fingers:
                 xl = results.multi_hand_landmarks[0].landmark[v].x * wCam
                 yl = results.multi_hand_landmarks[0].landmark[v].y * hCam
@@ -44,7 +44,7 @@ def createNormList(aimage):
     mpHands = mp.solutions.hands
     hands = mpHands.Hands()
     mpdraw = mp.solutions.drawing_utils
-    lst_hd = [mpHands.HandLandmark.THUMB_TIP, mpHands.HandLandmark.INDEX_FINGER_TIP, mpHands.HandLandmark.MIDDLE_FINGER_TIP, mpHands.HandLandmark.RING_FINGER_TIP, mpHands.HandLandmark.PINKY_TIP]
+    lst_hd = [mpHands.HandLandmark.THUMB_TIP, mpHands.HandLandmark.INDEX_FINGER_TIP, mpHands.HandLandmark.MIDDLE_FINGER_TIP, mpHands.HandLandmark.RING_FINGER_TIP, mpHands.HandLandmark.PINKY_TIP,mpHands.HandLandmark.WRIST]
     newp = {}
 
     img = cv2.imread(aimage,0)
@@ -55,7 +55,7 @@ def createNormList(aimage):
         results = hands.process(imgRGB)
 
         if results.multi_hand_landmarks:
-            fingers = [mpHands.HandLandmark.THUMB_TIP, mpHands.HandLandmark.INDEX_FINGER_TIP, mpHands.HandLandmark.MIDDLE_FINGER_TIP, mpHands.HandLandmark.RING_FINGER_TIP, mpHands.HandLandmark.PINKY_TIP]
+            fingers = [mpHands.HandLandmark.THUMB_TIP, mpHands.HandLandmark.INDEX_FINGER_TIP, mpHands.HandLandmark.MIDDLE_FINGER_TIP, mpHands.HandLandmark.RING_FINGER_TIP, mpHands.HandLandmark.PINKY_TIP, mpHands.HandLandmark.WRIST]
             for v in fingers:
                 xl = results.multi_hand_landmarks[0].landmark[v].x
                 yl = results.multi_hand_landmarks[0].landmark[v].y
@@ -72,7 +72,7 @@ for root, dirs, files in os.walk(folder):
             images.append(os.path.join(root,file))
 folderRes = folder + '/' + folder + 'ImageData.csv'
 with open(folderRes, 'w', newline='') as csvfile:
-    fieldnames = ['HandLandmark.RING_FINGER_TIP','HandLandmark.THUMB_TIP','HandLandmark.PINKY_TIP','HandLandmark.INDEX_FINGER_TIP','HandLandmark.MIDDLE_FINGER_TIP']
+    fieldnames = ['HandLandmark.RING_FINGER_TIP','HandLandmark.THUMB_TIP','HandLandmark.PINKY_TIP','HandLandmark.INDEX_FINGER_TIP','HandLandmark.MIDDLE_FINGER_TIP','HandLandmark.WRIST']
 
     csv_writer = csv.DictWriter(csvfile,fieldnames=fieldnames)
     #spamwriter.writerow("THUMB INDEX MIDDLE RING PINKY")
