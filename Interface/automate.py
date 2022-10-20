@@ -59,9 +59,11 @@ def createNormList(aimage):
             for v in fingers:
                 xl = results.multi_hand_landmarks[0].landmark[v].x
                 yl = results.multi_hand_landmarks[0].landmark[v].y
+                zl = results.multi_hand_landmarks[0].landmark[v].z
                 #print(v, xl, yl)
+                print(zl)
                 if v in lst_hd:
-                    newp[str(v)] = (xl,yl)
+                    newp[str(v)] = (xl,yl,zl)
 
     print(newp)
 
