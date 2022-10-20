@@ -43,16 +43,21 @@ for root, dirs, files in os.walk("images"):
     for file in files:
         if file.endswith(".jpg"):
             images.append(os.path.join(root,file))
-
+print(images)
 with open('imagedata.csv', 'w', newline='') as csvfile:
     fieldnames = ['HandLandmark.RING_FINGER_TIP','HandLandmark.THUMB_TIP','HandLandmark.PINKY_TIP','HandLandmark.INDEX_FINGER_TIP','HandLandmark.MIDDLE_FINGER_TIP']
 
     csv_writer = csv.DictWriter(csvfile,fieldnames=fieldnames)
     #spamwriter.writerow("THUMB INDEX MIDDLE RING PINKY")
     for x in images:
-        tst = createList(x)
-        csv_writer.writeheader()
+            print(x)
+            tst = createList(x)
+            print(type(tst), len(tst))
+            if len(tst) != 0:
+                csv_writer.writeheader()
 
 
-            #csv_writer.writerow((str(tst[0][y])[13:][:-4]))
-        csv_writer.writerow(tst)
+                        #csv_writer.writerow((str(tst[0][y])[13:][:-4]))
+                csv_writer.writerow(tst)
+            else:
+                pass
