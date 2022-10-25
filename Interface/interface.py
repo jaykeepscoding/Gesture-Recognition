@@ -59,6 +59,7 @@ class opticsControl():
       mpdraw = mp.solutions.drawing_utils
       if self.live:
          _, frame = self.cap.read()
+         frame = cv2.flip(frame, 1)
          if _:
             cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             img = Image.fromarray(cv2image)
@@ -83,6 +84,7 @@ class opticsControl():
          self.killFeed()
          self.live = True
          self.cap = cv2.VideoCapture(0)
+
          self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 100)
          self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 200)
          self.show_feed()
