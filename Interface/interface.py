@@ -33,24 +33,25 @@ class Operations():
       #tkinter.Button(self.win, text="Calibrate").pack()
       print("A")
 
+   def turnOffHand(self):
+      pass
 
-
-   def exit(self):
-      return 0
-   def reset(self):
-      return 0
 
 class opticsControl():
    def __init__(self, win):
       self.live = 1
+      self.handtracking = True
       self.win = win
+      self.HandTracking = Button(self.win, text = "Disable Handtracking", command = self.switchHandtracking )
       self.labeler = Label(self.win, width=150)
       self.cap = None
       self.startFeed()
       TurnCameraOn = Button(self.win, text="Start Video", command=self.startFeed)
       TurnCameraOff = Button(self.win, text="Stop Video", command=self.killFeed)
-      lambda x : x; TurnCameraOn.pack(side=RIGHT), TurnCameraOff.pack(side=RIGHT)
+      lambda x : x; TurnCameraOn.pack(side=RIGHT), TurnCameraOff.pack(side=RIGHT), self.HandTracking.pack(side = RIGHT)
       self.labeler.pack()
+
+      #self.nxtlb.pack()
    def show_feed(self):
       wCam, hCam = pyautogui.size()[0], pyautogui.size()[1]
       mpHands = mp.solutions.hands
@@ -62,15 +63,15 @@ class opticsControl():
             cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             img = Image.fromarray(cv2image)
             results = hands.process(cv2image)
+            if self.handtracking:
+               if results.multi_hand_landmarks:
+                  if keyboard.is_pressed('Ctrl'):
+                     exit()
 
-            if results.multi_hand_landmarks:
-               if keyboard.is_pressed('Ctrl'):
-                  exit()
-
-               xl = results.multi_hand_landmarks[0].landmark[mpHands.HandLandmark.INDEX_FINGER_TIP].x * wCam
-               yl = results.multi_hand_landmarks[0].landmark[mpHands.HandLandmark.INDEX_FINGER_TIP].y * hCam
-               print(xl, yl)
-               pyautogui.moveTo(xl, yl)
+                  xl = results.multi_hand_landmarks[0].landmark[mpHands.HandLandmark.INDEX_FINGER_TIP].x * wCam
+                  yl = results.multi_hand_landmarks[0].landmark[mpHands.HandLandmark.INDEX_FINGER_TIP].y * hCam
+                  print(xl, yl)
+                  pyautogui.moveTo(xl, yl)
             # Convert image to PhotoImage
             imgtk = ImageTk.PhotoImage(image=img)
             self.labeler.imgtk = imgtk
@@ -90,7 +91,18 @@ class opticsControl():
       self.live = False
       if self.cap:
          self.cap.release()
+   def switchHandtracking(self):
 
+      # Determine is on or off
+      if self.handtracking:
+         self.HandTracking.config(text= "Activate Handtracking")
+         #self.nxtlb.config(text="The Switch is Off")
+         self.handtracking = False
+      else:
+
+         self.HandTracking.config(text= "Disable Handtracking")
+         #self.nxtlb.config(text="The Switch is On")
+         self.handtracking = True
 
 instance = Interface()
 
