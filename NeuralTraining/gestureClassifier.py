@@ -6,9 +6,9 @@ from sklearn.model_selection import train_test_split
 
 RANDOM_SEED = 42
 
-dataset = 'keypoint.csv'
-model_save_path = 'keypoint_classifier.hdf5'
-tflite_save_path = 'keypoint_classifier.tflite'
+dataset = 'NeuralTraining/keypoint.csv'
+model_save_path = 'NeuralTraining/keypoint_classifier.hdf5'
+tflite_save_path = 'NeuralTraining/keypoint_classifier.tflite'
 
 NUM_CLASSES = 8
 
