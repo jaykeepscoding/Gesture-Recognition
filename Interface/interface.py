@@ -10,9 +10,9 @@ import pyautogui
 import tkinter.ttk as ttk
 from tkinter.ttk import *
 from ttkthemes import ThemedTk
-from memory_profiler import profile
+#from memory_profiler import profile
 import numpy as np
-pyautogui.PAUSE=0.001
+pyautogui.PAUSE=0.000
 
 class Interface():
    def __init__(self):
@@ -40,7 +40,7 @@ class Operations():
    def leftClick():
       pyautogui.leftClick()
 class opticsControl():
-   @profile
+
    def __init__(self, win):
       self.mpHands = mp.solutions.hands
       self.hands = self.mpHands.Hands()
@@ -53,10 +53,10 @@ class opticsControl():
       self.startFeed()
       self.win2 = False
 
-      TurnCameraOn = Button(self.win, text="Start Video", command=self.startFeed)
-      TurnCameraOff = Button(self.win, text="Stop Video", command=self.killFeed)
+      #self.TurnCameraOn = Button(self.win, text="Start Video", command=self.startFeed)
+      self.TurnCameraOff = Button(self.win, text="Settings")
       self.Help = Button(self.win, text="Help", command=self.helpwindow)
-      lambda x : x; TurnCameraOn.pack(side=RIGHT), TurnCameraOff.pack(side=RIGHT), self.HandTracking.pack(side = RIGHT), self.Help.pack(side = TOP)
+      lambda x : x; self.TurnCameraOff.pack(side=RIGHT), self.HandTracking.pack(side = RIGHT), self.Help.pack(side = RIGHT)
       self.labeler.pack()
 
    def trackHands(self,frame):
@@ -69,10 +69,12 @@ class opticsControl():
             results = self.hands.process(cv2image)
             landmark_array = np.empty((0, 2), int)
             if results.multi_hand_landmarks:
-               xl = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.INDEX_FINGER_TIP].x * wCam
-               yl = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.INDEX_FINGER_TIP].y * hCam
-               #pyautogui.moveTo(xl, yl)
+               xl = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.WRIST].x * wCam
+               yl = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.WRIST].y * hCam
+               pyautogui.moveTo(xl, yl)
                print(results.multi_hand_landmarks[0])
+               
+            
 
 
    def helpwindow(self):
@@ -99,7 +101,7 @@ class opticsControl():
             self.labeler.after(20, self.show_feed)
    def startFeed(self):
 
-         self.killFeed()
+         
          self.live = True
          self.cap = cv2.VideoCapture(0)
 
@@ -108,7 +110,7 @@ class opticsControl():
          print("Start Feed Works")
          self.show_feed()
    def killFeed(self):
-      self.live
+      
       self.live = False
       if self.cap:
          self.cap.release()
@@ -136,7 +138,16 @@ class help(tkinter.Frame):
       helpwindow.geometry('%dx%d+%d+%d' % (width, yoffset, x+xoffset+2, y))
       helpwindow.title("Help")
 
+      self.label1 = Label(helpwindow)
+      self.button1 = Button(helpwindow).pack(side=RIGHT)
+      self.button2 = Button(helpwindow).pack(side=RIGHT)
+      self.button3 = Button(helpwindow).pack(side=RIGHT)
+      self.button4 = Button(helpwindow).pack(side=RIGHT)
+      self.button5 = Button(helpwindow).pack(side=RIGHT)
+      self.button6 = Button(helpwindow).pack(side=RIGHT)
+      self.label1.pack()
    def close_help(self):
+      self.label1.destroy()
       self.destroy()
 instance = Interface()
 
