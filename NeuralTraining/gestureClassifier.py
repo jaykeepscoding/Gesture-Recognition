@@ -8,7 +8,7 @@ RANDOM_SEED = 42
 
 dataset = 'NeuralTraining/keypoint.csv'
 model_save_path = 'NeuralTraining/keypoint_classifier.hdf5'
-tflite_save_path = 'NeuralTraining/keypoint_classifier.tflite'
+#tflite_save_path = 'NeuralTraining/keypoint_classifier.tflite'
 
 NUM_CLASSES = 8
 
