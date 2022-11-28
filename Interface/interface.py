@@ -5,7 +5,7 @@ import cv2
 import time
 import pyautogui
 import mediapipe as mp
-import keyboard
+
 import pyautogui
 import tkinter.ttk as ttk
 from tkinter.ttk import *
