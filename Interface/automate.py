@@ -80,9 +80,6 @@ with open(folderRes, 'w', newline='') as csvfile:
             tst = createList(x)
             tst2 = createNormList(x)
             if len(tst) != 0:
-                csv_writer.writeheader()
-
-
                         #csv_writer.writerow((str(tst[0][y])[13:][:-4]))
                 csv_writer.writerow(tst)
                 csv_writer.writerow(tst2)
