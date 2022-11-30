@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 
 RANDOM_SEED = 42
 
-dataset = 'NeuralTraining/try-this.csv'
+dataset = 'NeuralTraining/mp-norm-coord.csv'
 model_save_path = 'NeuralTraining/keypoint_classifier.hdf5'
 #tflite_save_path = 'NeuralTraining/keypoint_classifier.tflite'
 
