@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 
 RANDOM_SEED = 42
 
-dataset = 'NeuralTraining/mp-norm-coord.csv'
+dataset = 'NeuralTraining/try-this.csv'
 model_save_path = 'NeuralTraining/keypoint_classifier.hdf5'
 #tflite_save_path = 'NeuralTraining/keypoint_classifier.tflite'
 
@@ -17,10 +17,10 @@ y_dataset = np.loadtxt(dataset, delimiter=',', dtype='int32', usecols=(0))
 X_train, X_test, y_train, y_test = train_test_split(X_dataset, y_dataset, train_size=0.75, random_state=RANDOM_SEED)
 
 model = tf.keras.models.Sequential([
-    tf.keras.layers.Input((6 * 2, )),
-    tf.keras.layers.Dropout(0.2),
+    #tf.keras.layers.Input((6 * 2, )),
+    #tf.keras.layers.Dropout(0.2),
     tf.keras.layers.Dense(20, activation='relu'),
-    tf.keras.layers.Dropout(0.4),
+    #tf.keras.layers.Dropout(0.4),
     tf.keras.layers.Dense(10, activation='relu'),
     tf.keras.layers.Dense(NUM_CLASSES, activation='softmax')
 ])
