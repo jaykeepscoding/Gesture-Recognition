@@ -28,17 +28,16 @@ class Interface():
       self.win.mainloop()
 
 
-class Operations():
-   def __init__(self, win):
-      self.win = win
-
-   def scrollUp():
-      pyautogui.vscroll(10)
-      #tkinter.Button(self.win, text="Calibrate").pack()
-   def scrollDown():
-      pyautogui.vscroll(-10)
-   def leftClick():
-      pyautogui.leftClick()
+# class Operations():
+#    def __init__(self, win):
+#       self.win = win
+#    def scrollUp():
+#       pyautogui.vscroll(10)
+#       #tkinter.Button(self.win, text="Calibrate").pack()
+#    def scrollDown():
+#       pyautogui.vscroll(-10)
+#    def leftClick():
+#       pyautogui.leftClick()
 class opticsControl():
 
    def __init__(self, win):
@@ -87,9 +86,28 @@ class opticsControl():
                yl = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.WRIST].y * hCam
                #pyautogui.moveTo(xl, yl)
                #print(results.multi_hand_landmarks[0])
-               
-            
-
+               # if tst1 == 0:
+               #    pyautogui.leftClick()
+               # elif tst1 == 1:
+               #    pyautogui.rightClick()
+               # elif tst1 == 2:
+               #    pyautogui.scroll(-10)
+               # elif tst1 == 3:
+               #    pyautogui.hscroll(-10)
+               # elif tst1 == 4:
+               #    pyautogui.hscroll(10)
+               # elif tst1 == 5:
+               #    pyautogui.scroll(10)
+               # elif tst1 == 6:
+               #    pyautogui.keyDown('ctrl')
+               #    pyautogui.scroll(10)
+               #    pyautogui.keyUp('ctrl')
+               # elif tst1 == 7:
+               #    pyautogui.keyDown('ctrl')
+               #    pyautogui.scroll(-10)
+               #    pyautogui.keyUp('ctrl')
+               # else:
+               #    pyautogui.moveTo(xl, yl)
 
    def helpwindow(self):
       if self.win2 == False:
@@ -115,7 +133,6 @@ class opticsControl():
             self.labeler.after(20, self.show_feed)
    def startFeed(self):
 
-         
          self.live = True
          self.cap = cv2.VideoCapture(0)
 
@@ -136,7 +153,6 @@ class opticsControl():
          #self.nxtlb.config(text="The Switch is Off")
          self.handtracking = False
       else:
-
          self.HandTracking.config(text= "Disable Handtracking")
          #self.nxtlb.config(text="The Switch is On")
          self.handtracking = True
@@ -147,19 +163,17 @@ class help(tkinter.Frame):
       helpwindow = tkinter.Toplevel(self)
       helpwindow.wm_attributes('-toolwindow', 'True')
       helpwindow.wm_attributes('-topmost', 'True')
-      width, height = 650, 200
 
-      helpwindow.geometry('%dx%d+%d+%d' % (width, yoffset, x+xoffset+2, y))
+      helpwindow.geometry("500x750")
       helpwindow.title("Help")
-
-      self.label1 = Label(helpwindow)
-      self.button1 = Button(helpwindow).pack(side=RIGHT)
-      self.button2 = Button(helpwindow).pack(side=RIGHT)
-      self.button3 = Button(helpwindow).pack(side=RIGHT)
-      self.button4 = Button(helpwindow).pack(side=RIGHT)
-      self.button5 = Button(helpwindow).pack(side=RIGHT)
-      self.button6 = Button(helpwindow).pack(side=RIGHT)
+      
+      self.frame = Frame(helpwindow, width=500, height=750)
+      self.frame.pack()
+      self.frame.place(anchor='center', relx=0.5, rely=0.5)
+      self.img = ImageTk.PhotoImage(Image.open("Interface/img.png"))
+      self.label1 = Label(self.frame, image=self.img)
       self.label1.pack()
+
    def close_help(self):
       self.label1.destroy()
       self.destroy()
