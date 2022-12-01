@@ -5,7 +5,7 @@ import cv2
 import time
 import pyautogui
 import mediapipe as mp
-
+import tensorflow as tf
 import pyautogui
 import tkinter.ttk as ttk
 from tkinter.ttk import *
@@ -65,14 +65,28 @@ class opticsControl():
 
       if self.handtracking:
             # mpdraw = mp.solutions.drawing_utils
+            model= tf.keras.models.load_model("Interface/keypoint_classifier.hdf5")
             cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             results = self.hands.process(cv2image)
             landmark_array = np.empty((0, 2), int)
             if results.multi_hand_landmarks:
+               hand_pos = [[]]
+               fingers = [self.mpHands.HandLandmark.THUMB_TIP, self.mpHands.HandLandmark.INDEX_FINGER_TIP, self.mpHands.HandLandmark.MIDDLE_FINGER_TIP, self.mpHands.HandLandmark.RING_FINGER_TIP, self.mpHands.HandLandmark.PINKY_TIP,self.mpHands.HandLandmark.WRIST]
+               for v in fingers:
+                  xr = results.multi_hand_landmarks[0].landmark[v].x
+                  yr = results.multi_hand_landmarks[0].landmark[v].y
+                  if v in fingers:
+                    hand_pos[0].append(xr)
+                    hand_pos[0].append(yr)
+               print(hand_pos)
+               test = model.predict(np.array(hand_pos))
+               tst1 = np.argmax(test)
+               print(tst1)
+               #print(model.predict(hand_pos))
                xl = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.WRIST].x * wCam
                yl = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.WRIST].y * hCam
-               pyautogui.moveTo(xl, yl)
-               print(results.multi_hand_landmarks[0])
+               #pyautogui.moveTo(xl, yl)
+               #print(results.multi_hand_landmarks[0])
                
             
 
