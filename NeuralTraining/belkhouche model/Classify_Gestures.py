@@ -13,7 +13,7 @@ from tensorflow.keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
 
 
-data_file ='data/mp-norm-coord.csv'
+data_file ='NeuralTraining/belkhouche model/data/mp-norm-coord.csv'
 alldata   = np.loadtxt(data_file, delimiter=',',dtype=float)
 
 Gestures = np.array(alldata[:,1:])
