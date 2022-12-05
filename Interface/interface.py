@@ -170,7 +170,7 @@ class help(tkinter.Frame):
       self.frame = Frame(helpwindow, width=500, height=750)
       self.frame.pack()
       self.frame.place(anchor='center', relx=0.5, rely=0.5)
-      self.img = ImageTk.PhotoImage(Image.open("Interface/img.png"))
+      self.img = ImageTk.PhotoImage(Image.open("Interface/table.png"))
       self.label1 = Label(self.frame, image=self.img)
       self.label1.pack()
 
