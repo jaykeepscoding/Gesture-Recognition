@@ -1,8 +1,0 @@
-Interface (Google Chrome Extension, Tkinter Interface, or other Interface)
-Training Gestures (Sample Data, Training, Test Data)
-Code Optimization
-Documentation(?)
-Graphics (UI Graphics, if we are implementing an interface as agreed)
-Calibration Techniques/Implementation
-----
-Deployment (executable or extension deployment) 
