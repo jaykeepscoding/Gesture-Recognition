@@ -32,7 +32,7 @@ class opticsControl():
 
    def __init__(self, win):
       self.mpHands = mp.solutions.hands
-      self.hands = self.mpHands.Hands(max_num_hands=1,min_detection_confidence=0.55, min_tracking_confidence=0.9 )
+      self.hands = self.mpHands.Hands(max_num_hands=1,min_detection_confidence=0.15, min_tracking_confidence=0.9 )
       self.live = 1
       self.handtracking = True
       self.win = win
@@ -65,8 +65,8 @@ class opticsControl():
                      hand_pos[0].append(yl)
                test = model.predict(np.array(hand_pos))
                tst1 = np.argmax(test)
-               xr = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.WRIST].x * wCam
-               yr = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.WRIST].y * hCam
+               xr = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.PINKY_TIP].x *1920
+               yr = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.MIDDLE_FINGER_PIP].y *1080
                if tst1 == 0:
                   pyautogui.leftClick()
                   time.sleep(.5)
@@ -94,6 +94,10 @@ class opticsControl():
                   pyautogui.keyUp('ctrl')
                   #time.sleep(.1)
                elif tst1 == 8:
+                  print(pyautogui.position())
+                  print(cv2image.shape[:2])
+                  print(pyautogui.size())
+                  print(xr,yr)
                   pyautogui.moveTo(xr, yr)
                return 0
    def helpwindow(self):
@@ -109,6 +113,7 @@ class opticsControl():
                frame = cv2.flip(frame, 1)
                cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                img = Image.fromarray(cv2image)
+               #img = img.resize((160,120), resample = Image.Resampling.BILINEAR)
                if _:
                   opticsControl.trackHands(self,frame)
 
