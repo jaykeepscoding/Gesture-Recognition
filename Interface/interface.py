@@ -50,15 +50,11 @@ class opticsControl():
 
    def trackHands(self,frame):
       wCam, hCam = pyautogui.size()[0], pyautogui.size()[1]
-
-
       if self.handtracking:
-            # mpdraw = mp.solutions.drawing_utils
             model= tf.keras.models.load_model("Interface/keypoint_classifier.hdf5")
             cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             results = self.hands.process(cv2image)
             if results.multi_hand_landmarks:
-
                hand_pos = [[]]
                fingers = [self.mpHands.HandLandmark.THUMB_TIP, self.mpHands.HandLandmark.INDEX_FINGER_TIP, self.mpHands.HandLandmark.MIDDLE_FINGER_TIP, self.mpHands.HandLandmark.RING_FINGER_TIP, self.mpHands.HandLandmark.PINKY_TIP]
                for v in fingers:
@@ -100,8 +96,6 @@ class opticsControl():
                elif tst1 == 8:
                   pyautogui.moveTo(xr, yr)
                return 0
-            
-
    def helpwindow(self):
       if self.win2 == False:
          self.hw = help(self.win.winfo_x(), self.win.winfo_y(),self.win.winfo_width(), self.win.winfo_height())
@@ -123,12 +117,9 @@ class opticsControl():
                self.labeler.configure(image=imgtk)
 
             self.labeler.after(20, self.show_feed)
-   def startFeed(self):
-
-         
+   def startFeed(self):   
          self.live = True
          self.cap = cv2.VideoCapture(0)
-
          self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 150)
          self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 150)
          print("Start Feed Works")
@@ -155,7 +146,7 @@ class help(tkinter.Frame):
       helpwindow = tkinter.Toplevel(self)
       helpwindow.wm_attributes('-toolwindow', 'True')
       helpwindow.wm_attributes('-topmost', 'True')
-      width, height = 200, 600
+      width, height = 340, 600
 
       helpwindow.geometry('%dx%d+%d+%d' % (width, yoffset+735, x+xoffset+2, y))
       helpwindow.title("Help")
