@@ -1,0 +1,20 @@
+Please Before starting New_Automate remember a few things
+1. Video will start immediately as you type which classifier (number) your hand gesture will be
+2. Video feed will not be set to always on top, so you may need to move some windows on your desktop to make room for a feed of yourself
+3. To quit doing a gesture, you must select feed window and spam 'q'
+4. A message will appear asking if you are finished doing gestures, If you say you aren't finished it will restart the program (with a counter remembering how many images were created)
+5. Once you say you are finished doing gestures, it will go through each image making a entry in the CSV, this can take a while for large sets of data.
+6. Be 'verbose' with your gestures, think of every place and rotation your hand will be in doing the gesture in 3D space (this could include depth)
+7. Be reasonable when moving your hand infront of the camera, Mediapipe is bad at reading blurs
+8. The program does not track how many files are in the folder, so if you restart the entire program (re-execute) the counter will be zero, this can cause overwrites (you can set the counter manually in the code)
+
+Before using Classify_Gestures
+1. Know it can take a while for different dataset sizes
+2. If you get some insane amount of data, change the batch_size
+3. Large batch_sizes are good for people with good GPUs, small batch sizes are slow no matter what (think multithreaded vs sequential), but smaller batch sizes can be more accurate
+
+In general
+1. Remember that a high model accuracy doesn't inherently mean that it is an accurate capture of real-time camera data (although it is a good sign)
+2. World points track from "Hand Center", do with that information what you will.
+3. Camera data is forced into a (150px,150px) scale, so that there is consistancy between training data and other cameras. (cap.set controls camera Width and Height in Interface and New_automate)
+4. If a gesture isn't being detected often enough (but is being detected sometimes), you need more pictures.
