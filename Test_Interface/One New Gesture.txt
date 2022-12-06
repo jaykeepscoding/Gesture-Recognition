@@ -1,3 +1,0 @@
-Closed Fist for move cursor, The Program is pretty pickey about how close of an approximation you make your hand to the test data, and distance from camera.
-(Not too big of a deal, but can be noticable at times) 
-This is just for you guys to test, and give feedback on.
