@@ -46,9 +46,9 @@ class opticsControl():
       self.mpHands = mp.solutions.hands
       self.hands = self.mpHands.Hands(max_num_hands=1,min_detection_confidence=0.35, min_tracking_confidence=0.9 )
       self.live = 1
-      self.handtracking = True
+      self.handtracking = False
       self.win = win
-      self.HandTracking = Button(self.win, text = "Disable Handtracking", command = self.switchHandtracking )
+      self.HandTracking = Button(self.win, text = "Activate Handtracking", command = self.switchHandtracking )
       self.labeler = Label(self.win, width=150)
       self.cap = None
       self.startFeed()
