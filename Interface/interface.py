@@ -82,7 +82,7 @@ class opticsControl():
                      hand_pos[0].append(yl)
                test = self.model.predict(np.array(hand_pos))
                tst1 = np.argmax(test)
-               xr = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.PINKY_TIP].x * wCam
+               xr = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.PINKY_MCP].x * wCam
                yr = results.multi_hand_landmarks[0].landmark[self.mpHands.HandLandmark.MIDDLE_FINGER_PIP].y * hCam
                if tst1 == 0:
                   pyautogui.leftClick()
@@ -94,11 +94,10 @@ class opticsControl():
                   pyautogui.scroll(-10)
                elif tst1 == 3:
                   pyautogui.hotkey('left')
-                  time.sleep(0.1)
+                  #time.sleep(0.1)
                   #pyautogui.hscroll(-10)
                elif tst1 == 4:
                   pyautogui.hotkey('right')
-                  time.sleep(0.1)
                   #pyautogui.hscroll(10)
                elif tst1 == 5:
                   pyautogui.scroll(10)
@@ -166,6 +165,7 @@ class help(tkinter.Frame):
       helpwindow = tkinter.Toplevel(self)
       helpwindow.wm_attributes('-toolwindow', 'True')
       helpwindow.wm_attributes('-topmost', 'True')
+      helpwindow.resizable(0,0)
       width, height = 340, 600
       helpwindow.geometry('%dx%d+%d+%d' % (width, yoffset+735, x+xoffset+2, y))
       helpwindow.title("Help")
